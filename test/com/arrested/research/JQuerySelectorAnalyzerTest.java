@@ -27,6 +27,16 @@ public class JQuerySelectorAnalyzerTest {
 	}
 	
 	@Test
+	public void getSelectorsTest_TwoSelectorsDoubleQuote() {
+		
+		List<String> selectors = JQuerySelectorAnalyzer.getSelectors("checkMarketPlace = ($(\"#checkMarketPlace\").length > 0) ? $(\"#checkMarketPlace\").val() : '',");
+		
+		Assert.assertEquals(2, selectors.size());
+		Assert.assertEquals("#checkMarketPlace", selectors.get(0));
+		Assert.assertEquals("#checkMarketPlace", selectors.get(1));
+	}
+	
+	@Test
 	public void getSelectorsTest_MixedQuotes() {
 		
 		List<String> selectors = JQuerySelectorAnalyzer.getSelectors("self.refreshContainer = $('#fetchRefreshContent'); foo = $(\".somethingElse\")");
