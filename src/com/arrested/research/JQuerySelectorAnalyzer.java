@@ -58,9 +58,11 @@ public class JQuerySelectorAnalyzer {
 			String argument = args[i];
 			
 			if ("-t".equalsIgnoreCase(argument) || "--threshold".equalsIgnoreCase(argument)) {
+				
 				if ( i + 1 < args.length) {
 					referenceThreshold = Integer.parseInt(args[++i]);
 				}
+				
 			} else {
 				
 				File file = new File(argument);
@@ -69,20 +71,31 @@ public class JQuerySelectorAnalyzer {
 				System.out.println(file.getName());
 				System.out.println("****************************************");
 				
-				Map<String, Set<Integer>> fileSelectors = getSelectorsInFile(file);
+				Map<String, Set<Integer>> fileSelectors = filterSelectors(getSelectorsInFile(file));
 				
 				for (String selector : fileSelectors.keySet()) {
-					
-					Set<Integer> lineNumbers = fileSelectors.get(selector);
-					
-					if (lineNumbers.size() > referenceThreshold) {
-						System.out.println(selector + " " + lineNumbers);
-					}
+					System.out.println(selector + " " + fileSelectors.get(selector));
 				}
 			}
 		}
 	}
 	
+	protected final Map<String, Set<Integer>> filterSelectors(Map<String, Set<Integer>> rawSelectorMap) {
+		
+		Map<String, Set<Integer>> filteredSelectors = new HashMap<>();
+		
+		for (String selector : rawSelectorMap.keySet()) {
+			
+			Set<Integer> references = rawSelectorMap.get(selector);
+			
+			if (references.size() >= referenceThreshold) {
+				filteredSelectors.put(selector, references);
+			}
+		}
+		
+		return filteredSelectors;
+	}
+ 	
 	/**
 	 * Returns a Map consisting of the jquery selectors found mapped to the
 	 * lines of the file they were found on.
