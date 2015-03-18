@@ -1,10 +1,9 @@
 package com.arrested.research;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,12 +27,12 @@ public class JQuerySelectorAnalyzerTest {
 		Assert.assertEquals(0, filterSelectorsTestHelper(1).size());
 	}
 	
-	private Map<String, Set<Integer>> filterSelectorsTestHelper(int numberOfReferences) {
+	private Map<String, List<Integer>> filterSelectorsTestHelper(int numberOfReferences) {
 		
 		JQuerySelectorAnalyzer analyzer = new JQuerySelectorAnalyzer(2);
 		
-		Map<String, Set<Integer>> rawSelectors = new HashMap<>();
-		Set<Integer> lineNumbers = new HashSet<>();
+		Map<String, List<Integer>> rawSelectors = new HashMap<>();
+		List<Integer> lineNumbers = new ArrayList<>();
 		
 		for (int i = 1; i <= numberOfReferences; i++) {
 			lineNumbers.add(i);
@@ -42,6 +41,21 @@ public class JQuerySelectorAnalyzerTest {
 		rawSelectors.put(".test", lineNumbers);
 		
 		return analyzer.filterSelectors(rawSelectors);
+	}
+	
+	@Test
+	public void filterSelectorsTest_manyOnOneLine() {
+		JQuerySelectorAnalyzer analyzer = new JQuerySelectorAnalyzer(2);
+		
+		Map<String, List<Integer>> rawSelectors = new HashMap<>();
+		List<Integer> lineNumbers = new ArrayList<>();
+		
+		lineNumbers.add(1);
+		lineNumbers.add(1);
+		
+		rawSelectors.put(".test", lineNumbers);
+		
+		Assert.assertEquals(1, analyzer.filterSelectors(rawSelectors).size());
 	}
 	
 	// Tests for getSelectors()
