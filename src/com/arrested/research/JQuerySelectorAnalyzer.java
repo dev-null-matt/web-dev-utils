@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class JQuerySelectorAnalyzer {
 	
 	private static final Pattern SELECTOR_REGEX_SINGLE_QUOTE = Pattern.compile("\\$\\('([^']*)'\\)");
-	private static final Pattern SELECTOR_REGEX_DOUBLE_QUOTE = Pattern.compile("\\$\\(\"([^']*)\"\\)");
+	private static final Pattern SELECTOR_REGEX_DOUBLE_QUOTE = Pattern.compile("\\$\\(\"([^\"]*)\"\\)");
 	
 	private static final int DEFAULT_REFERENCE_THRESHOLD = 0;
 	
