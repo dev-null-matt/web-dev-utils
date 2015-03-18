@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,7 @@ public class JQuerySelectorAnalyzer {
 				System.out.println(file.getName());
 				System.out.println("****************************************");
 				
-				Map<String, Set<Integer>> fileSelectors = filterSelectors(getSelectorsInFile(file));
+				Map<String, List<Integer>> fileSelectors = filterSelectors(getSelectorsInFile(file));
 				
 				for (String selector : fileSelectors.keySet()) {
 					System.out.println(selector + " " + fileSelectors.get(selector));
@@ -80,13 +81,14 @@ public class JQuerySelectorAnalyzer {
 		}
 	}
 	
-	protected final Map<String, Set<Integer>> filterSelectors(Map<String, Set<Integer>> rawSelectorMap) {
+	protected final Map<String, List<Integer>> filterSelectors(Map<String, List<Integer>> rawSelectorMap) {
 		
-		Map<String, Set<Integer>> filteredSelectors = new HashMap<>();
+		Map<String, List<Integer>> filteredSelectors = new HashMap<>();
 		
 		for (String selector : rawSelectorMap.keySet()) {
 			
-			Set<Integer> references = rawSelectorMap.get(selector);
+			List<Integer> references = rawSelectorMap.get(selector);
+			Collections.sort(references);
 			
 			if (references.size() >= referenceThreshold) {
 				filteredSelectors.put(selector, references);
@@ -104,7 +106,7 @@ public class JQuerySelectorAnalyzer {
 	 * @return a Map of the jquery selectors found to the lines they were found
 	 *         on
 	 */
-	public final static Map<String, Set<Integer>> getSelectorsInFile(final File file) {
+	public final static Map<String, List<Integer>> getSelectorsInFile(final File file) {
 		
 		BufferedReader reader = null;
 		
@@ -127,9 +129,9 @@ public class JQuerySelectorAnalyzer {
 		}
 	}
 	
-	protected final static Map<String, Set<Integer>> parseFile(BufferedReader reader) throws IOException {
+	protected final static Map<String, List<Integer>> parseFile(BufferedReader reader) throws IOException {
 		
-		Map<String, Set<Integer>> fileSelectors = new HashMap<>();
+		Map<String, List<Integer>> fileSelectors = new HashMap<>();
 		
 		for (int lineNumber = 1; reader.ready(); lineNumber++) {
 			
@@ -138,7 +140,7 @@ public class JQuerySelectorAnalyzer {
 			for (String selector : lineSelectors) {
 				
 				if (!fileSelectors.containsKey(selector)) {
-					fileSelectors.put(selector, new TreeSet<Integer>());
+					fileSelectors.put(selector, new ArrayList<Integer>());
 				}
 				
 				fileSelectors.get(selector).add(lineNumber);
