@@ -13,6 +13,11 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Searches through files to find duplicated jquery selectors.
+ * 
+ * @author Matt Rick
+ */
 public class JQuerySelectorAnalyzer {
 	
 	private static final Pattern SELECTOR_REGEX_SINGLE_QUOTE = Pattern.compile("\\$\\('([^']*)'\\)");
@@ -20,7 +25,27 @@ public class JQuerySelectorAnalyzer {
 	
 	private static final int DEFAULT_REFERENCE_THRESHOLD = 0;
 	
-	private int referenceThreshold = DEFAULT_REFERENCE_THRESHOLD;
+	private int referenceThreshold;
+	
+	/**
+	 * Constructs a JQuerySelectorAnalyzer with the default reference threshold.
+	 * The analyzer only reports on selectors that appear more times than the
+	 * threshold.
+	 */
+	public JQuerySelectorAnalyzer() {
+		referenceThreshold = DEFAULT_REFERENCE_THRESHOLD;
+	}
+	
+	/**
+	 * Constructs a JQuerySelectorAnalyzer with the specified reference threshold.
+	 * The analyzer only reports on selectors that appear more times than the
+	 * threshold.
+	 * 
+	 * @param referenceThreshold the reference threshold for the new analyzer
+	 */
+	public JQuerySelectorAnalyzer(int referenceThreshold) {
+		this.referenceThreshold = referenceThreshold;
+	}
 	
 	public static void main(String[] args) {
 		new JQuerySelectorAnalyzer().parseCommandLineArguments(args);
@@ -58,6 +83,14 @@ public class JQuerySelectorAnalyzer {
 		}
 	}
 	
+	/**
+	 * Returns a Map consisting of the jquery selectors found mapped to the
+	 * lines of the file they were found on.
+	 * 
+	 * @param file the File to search for jquery selectors
+	 * @return a Map of the jquery selectors found to the lines they were found
+	 *         on
+	 */
 	public final static Map<String, Set<Integer>> getSelectorsInFile(final File file) {
 		
 		BufferedReader reader = null;
@@ -102,6 +135,13 @@ public class JQuerySelectorAnalyzer {
 		return fileSelectors;
 	}
 	
+	/**
+	 * Returns a List of Strings consisting of the jquery selectors found in the
+	 * string specified as the method argument.
+	 * 
+	 * @param line the String to search for jquery selectors
+	 * @return a List of the jquery selectors found
+	 */
 	public final static List<String> getSelectors(final String line) {
 		
 		List<String> selectors = new ArrayList<>();
