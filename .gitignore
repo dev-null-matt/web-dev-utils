@@ -5,6 +5,7 @@
 
 # IDE stuff
 .classpath
+.settings
 
 # Package Files #
 *.jar
