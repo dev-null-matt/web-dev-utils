@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,8 +72,9 @@ public class JQuerySelectorAnalyzer {
 				System.out.println("****************************************");
 				
 				Map<String, List<Integer>> fileSelectors = filterSelectors(getSelectorsInFile(file));
+				TreeSet<String> selectors = new TreeSet<>(fileSelectors.keySet());
 				
-				for (String selector : fileSelectors.keySet()) {
+				for (String selector : selectors) {
 					System.out.println(selector + " " + fileSelectors.get(selector));
 				}
 			}
