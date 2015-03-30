@@ -1,5 +1,6 @@
 package com.arrested.research.optimization;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -14,6 +15,7 @@ public class SelectorOptimizationEngine {
 	public SelectorOptimizationEngine() {
 		
 		SuggestionEngineFactory factory = new SuggestionEngineFactory();
+		suggestionEngines = new HashMap<>();
 		
 		for (OptimizationType type : OptimizationType.values()) {
 			suggestionEngines.put(type, factory.constructSuggestionEngine(type));
@@ -65,7 +67,7 @@ public class SelectorOptimizationEngine {
 		if (suggestionEngines.containsKey(type)) {
 			return suggestionEngines.get(type).getSuggestions(selector);
 		} else {
-			return null;	
+			return new TreeSet<>();	
 		}
 	}
 
@@ -93,7 +95,7 @@ public class SelectorOptimizationEngine {
 		if (suggestionEngines.containsKey(type)) {
 			return suggestionEngines.get(type).getSuggestions(selector);
 		} else {
-			return null;	
+			return new TreeSet<>();	
 		}
 	}
 
@@ -118,7 +120,7 @@ public class SelectorOptimizationEngine {
 		if (suggestionEngines.containsKey(type)) {
 			return suggestionEngines.get(type).getSuggestions(selector);
 		} else {
-			return null;	
+			return new TreeSet<>();	
 		}
 	}
 
@@ -146,7 +148,7 @@ public class SelectorOptimizationEngine {
 		if (suggestionEngines.containsKey(type)) {
 			return suggestionEngines.get(type).getSuggestions(selector);
 		} else {
-			return null;	
+			return new TreeSet<>();	
 		}
 	}
 }

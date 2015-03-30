@@ -13,6 +13,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.arrested.research.optimization.SelectorOptimizationEngine;
+
 /**
  * Searches through files to find duplicated jquery selectors.
  * 
@@ -23,7 +25,11 @@ public class JQuerySelectorAnalyzer {
 	private static final Pattern SELECTOR_REGEX_SINGLE_QUOTE = Pattern.compile("\\$\\('([^']*)'\\)");
 	private static final Pattern SELECTOR_REGEX_DOUBLE_QUOTE = Pattern.compile("\\$\\(\"([^\"]*)\"\\)");
 	
+	private static final String SUGGESTION_LINE_PREFIX = ">>>> ";
+	
 	private static final int DEFAULT_REFERENCE_THRESHOLD = 0;
+	
+	private SelectorOptimizationEngine optimizationEngine = new SelectorOptimizationEngine();
 	
 	private int referenceThreshold;
 	
@@ -52,7 +58,7 @@ public class JQuerySelectorAnalyzer {
 	}
 	
 	protected final void parseCommandLineArguments(final String[] args) {
-		
+
 		for (int i = 0; i < args.length; i++) {
 			
 			String argument = args[i];
@@ -75,7 +81,14 @@ public class JQuerySelectorAnalyzer {
 				TreeSet<String> selectors = new TreeSet<>(fileSelectors.keySet());
 				
 				for (String selector : selectors) {
+					
 					System.out.println(selector + " " + fileSelectors.get(selector));
+					
+					for (String suggestion : optimizationEngine.getSuggestions(selector)) {
+						System.out.println(SUGGESTION_LINE_PREFIX + suggestion);
+					}
+					
+					System.out.println();
 				}
 			}
 		}
