@@ -40,7 +40,7 @@ public class SelectorOptimizationEngine {
 		return suggestions;
 	}
 
-	// Documentation below this line is from jquery.org
+	// Documentation below this line is from jquery.com
 
 	/**
 	 * ID-Based Selectors
