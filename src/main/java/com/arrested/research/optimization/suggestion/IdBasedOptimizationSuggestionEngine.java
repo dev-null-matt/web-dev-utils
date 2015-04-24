@@ -40,6 +40,4 @@ class IdBasedOptimizationSuggestionEngine implements SuggestionEngine {
 		
 		return suggestions;
 	}
-	
-	
 }
