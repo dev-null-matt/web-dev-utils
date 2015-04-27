@@ -23,6 +23,21 @@ public class SelectorUtilsTest {
 	}
 	
 	@Test
+	public void isTagSelectorTest_positiveWithClass() {
+		Assert.assertTrue(SelectorUtils.isTagSelector("h1.foo"));
+	}
+
+	@Test
+	public void isTagSelectorTest_positiveWithId() {
+		Assert.assertTrue(SelectorUtils.isTagSelector("h1#foo"));
+	}
+
+	@Test
+	public void isTagSelectorTest_negatie() {
+		Assert.assertFalse(SelectorUtils.isTagSelector("#foo"));
+	}
+	
+	@Test
 	public void tokenizeSelectorTest_happyPath() {
 		
 		List<List<String>> tokens = SelectorUtils.tokenizeSelector("#a,div.b h1,#c");
