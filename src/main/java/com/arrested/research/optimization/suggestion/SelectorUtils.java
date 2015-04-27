@@ -9,12 +9,20 @@ import org.apache.commons.lang3.StringUtils;
 class SelectorUtils {
 
 	private static final Pattern ID_SELECTOR_FIRST = Pattern.compile("^#[A-Za-z][A-Za-z_\\-]*");
+	private static final Pattern TAG_SELECTOR_FIRST = Pattern.compile("^[A-Za-z][A-Za-z_\\-]*");
 	
 	/**
 	 * Determines if the specified selector is anchored on the left by an id.
 	 */
 	public static boolean isIdSelector(String token) {
 		return ID_SELECTOR_FIRST.matcher(token).find();
+	}
+	
+	/**
+	 * Determines if the specified selector is anchored on the left by a tag.
+	 */
+	public static boolean isTagSelector(String token) {
+		return TAG_SELECTOR_FIRST.matcher(token).find();
 	}
 	
 	/**
