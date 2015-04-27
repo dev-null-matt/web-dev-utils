@@ -41,6 +41,9 @@ class SelectorUtils {
 		return tokens;
 	}
 	
+	/**
+	 * Tokenizes a simple selector (a selector with only one sub-selector, or containing no commas).
+	 */
 	public static List<String> tokenizeSingleSelector(String singleSelector) {
 
 		if (StringUtils.contains(singleSelector, ",")) {
