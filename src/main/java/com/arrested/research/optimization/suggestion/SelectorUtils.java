@@ -8,8 +8,16 @@ import org.apache.commons.lang3.StringUtils;
 
 class SelectorUtils {
 
-	private static final Pattern ID_SELECTOR_FIRST = Pattern.compile("^#[A-Za-z][A-Za-z_\\-]*");
-	private static final Pattern TAG_SELECTOR_FIRST = Pattern.compile("^[A-Za-z][A-Za-z_\\-]*");
+	private static final Pattern CLASS_SELECTOR_FIRST = Pattern.compile("^\\.[A-Za-z][A-Za-z_\\-]*\\s?.*");
+	private static final Pattern ID_SELECTOR_FIRST = Pattern.compile("^#[A-Za-z][A-Za-z_\\-]*\\s?.*");
+	private static final Pattern TAG_SELECTOR_FIRST = Pattern.compile("^[A-Za-z][A-Za-z_\\-]*\\s?.*");
+
+	/**
+	 * Determines if the specified selector is anchored on the left by a class.
+	 */
+	public static boolean isClassSelector(String token) {
+		return CLASS_SELECTOR_FIRST.matcher(token).find();
+	}
 	
 	/**
 	 * Determines if the specified selector is anchored on the left by an id.

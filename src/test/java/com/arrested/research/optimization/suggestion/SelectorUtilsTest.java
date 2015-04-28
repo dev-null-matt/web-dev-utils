@@ -8,8 +8,23 @@ import org.junit.Test;
 public class SelectorUtilsTest {
 
 	@Test
+	public void isClassSelectorTest_positive() {
+		Assert.assertTrue(SelectorUtils.isClassSelector(".foo-BAR_bat h1"));
+	}
+	
+	@Test
+	public void isClassSelectorTest_negative() {
+		Assert.assertFalse(SelectorUtils.isClassSelector("foo-BAR_bat"));
+	}
+	
+	@Test
+	public void isClassSelectorTest_classSelectorNotFirst() {
+		Assert.assertFalse(SelectorUtils.isClassSelector("#baz.foo"));
+	}
+	
+	@Test
 	public void isIdSelectorTest_positive() {
-		Assert.assertTrue(SelectorUtils.isIdSelector("#foo-BAR_bat"));
+		Assert.assertTrue(SelectorUtils.isIdSelector("#foo-BAR_bat div"));
 	}
 	
 	@Test
