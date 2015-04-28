@@ -52,19 +52,4 @@ public class IdBasedOptimizationSuggestionEngineTest {
 		
 		Assert.assertTrue(suggestion.indexOf("$('#second').find('.child')") > -1);
 	}
-	
-	@Test
-	public void isIdSelectorTest_positive() {
-		Assert.assertTrue(engine.isIdSelector("#foo-BAR_bat"));
-	}
-	
-	@Test
-	public void isIdSelectorTest_negative() {
-		Assert.assertFalse(engine.isIdSelector("foo-BAR_bat"));
-	}
-	
-	@Test
-	public void isIdSelectorTest_idSelectorNotFirst() {
-		Assert.assertFalse(engine.isIdSelector(".baz#foo"));
-	}
 }
